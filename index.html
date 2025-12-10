@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <title>Big Nuts 🌰🌰</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        :root {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: #111;
+            background-color: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            text-align: center;
+            padding: 32px 16px 16px;
+        }
+
+        header h1 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        header h2 {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #777;
+            line-height: 1.4;
+        }
+
+        main {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 24px 16px 48px;
+        }
+
+        section {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 16px 16px 20px;
+            margin-bottom: 24px;
+        }
+
+        section h3 {
+            margin: 0 0 12px;
+            font-size: 1.1rem;
+        }
+
+        .field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 10px;
+        }
+
+        label {
+            font-size: 0.9rem;
+        }
+
+        input[type="number"] {
+            padding: 6px 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 0.95rem;
+            max-width: 260px;
+        }
+
+        .slider-row {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 10px;
+        }
+
+        .slider-row span.value {
+            font-size: 0.85rem;
+            color: #555;
+        }
+
+        input[type="range"] {
+            width: 260px;
+        }
+
+        button {
+            margin-top: 6px;
+            padding: 6px 12px;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            border: 1px solid #222;
+            background-color: #222;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #000;
+        }
+
+        .results {
+            margin-top: 12px;
+            padding-top: 8px;
+            border-top: 1px solid #eee;
+            font-size: 0.9rem;
+            white-space: pre-line;
+        }
+
+        .results.empty {
+            display: none;
+        }
+
+        footer {
+            border-top: 1px solid #eee;
+            padding: 12px 16px 18px;
+            font-size: 0.75rem;
+            color: #777;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Big Nuts 🌰🌰</h1>
+        <h2>
+            Calculateur d’épargne — Outil de projection financière neutre<br />
+            Savings calculator — Neutral financial projection tool
+        </h2>
+    </header>
+
+    <main>
+        <!-- Calculateur simple -->
+        <section id="calc-simple">
+            <h3>Calculateur simple / Simple calculator</h3>
+
+            <div class="field-group">
+                <label for="simple-initial">
+                    💵 Mise de départ / Initial amount (€)
+                </label>
+                <input
+                    type="number"
+                    id="simple-initial"
+                    value="100"
+                    min="0"
+                    step="1"
+                />
+            </div>
+
+            <div class="field-group">
+                <label for="simple-monthly">
+                    Épargne mensuelle / Monthly saving (€)
+                </label>
+                <input
+                    type="number"
+                    id="simple-monthly"
+                    value="150"
+                    min="0"
+                    step="1"
+                />
+            </div>
+
+            <div class="field-group">
+                <label for="simple-target">
+                    🎯 Objectif / Target amount (€)
+                </label>
+                <input
+                    type="number"
+                    id="simple-target"
+                    value="18000"
+                    min="0"
+                    step="100"
+                />
+            </div>
+
+            <button id="simple-btn">Calculer / Compute</button>
+
+            <div id="simple-results" class="results empty"></div>
+        </section>
+
+        <!-- Calculateur avancé -->
+        <section id="calc-advanced">
+            <h3>
+                Calculateur avancé (taux + inflation) / Advanced calculator (rate + inflation)
+            </h3>
+
+            <div class="field-group">
+                <label for="adv-initial">
+                    💵 Mise de départ / Initial amount (€)
+                </label>
+                <input
+                    type="number"
+                    id="adv-initial"
+                    value="100"
+                    min="0"
+                    step="1"
+                />
+            </div>
+
+            <div class="field-group">
+                <label for="adv-monthly">
+                    Épargne mensuelle / Monthly saving (€)
+                </label>
+                <input
+                    type="number"
+                    id="adv-monthly"
+                    value="150"
+                    min="0"
+                    step="1"
+                />
+            </div>
+
+            <div class="field-group">
+                <label for="adv-target">
+                    🎯 Objectif / Target amount (€)
+                </label>
+                <input
+                    type="number"
+                    id="adv-target"
+                    value="18000"
+                    min="0"
+                    step="100"
+                />
+            </div>
+
+            <div class="slider-row">
+                <label for="adv-rate">
+                    Taux d’intérêt / Interest rate (% per year)
+                </label>
+                <input
+                    type="range"
+                    id="adv-rate"
+                    min="0"
+                    max="10"
+                    step="0.1"
+                    value="3"
+                />
+                <span class="value">
+                    <span id="adv-rate-display">3.0</span> % an / year
+                </span>
+            </div>
+
+            <div class="slider-row">
+                <label for="adv-inflation">
+                    Inflation (%) / Inflation (% per year)
+                </label>
+                <input
+                    type="range"
+                    id="adv-inflation"
+                    min="0"
+                    max="15"
+                    step="0.1"
+                    value="2"
+                />
+                <span class="value">
+                    <span id="adv-inflation-display">2.0</span> % an / year
+                </span>
+            </div>
+
+            <button id="adv-btn">Calculer / Compute</button>
+
+            <div id="adv-results" class="results empty"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>
+            FR — Cet outil réalise uniquement des calculs indicatifs à partir des données
+            saisies par l’utilisateur. Il ne constitue ni un conseil financier, ni une
+            analyse personnalisée, ni une recommandation d’investissement. Pour toute
+            décision engageant votre situation financière, veuillez consulter un
+            conseiller bancaire ou un professionnel habilité. L’éditeur décline toute
+            responsabilité quant à l’usage, l’interprétation ou les décisions prises à
+            partir des résultats affichés.
+        </p>
+        <p>
+            EN — This calculator provides purely indicative results based on user-entered
+            data. It does not constitute financial advice, personalized analysis, or any
+            form of investment recommendation. For any decision affecting your financial
+            situation, please consult a licensed financial advisor or banking professional.
+            The creator assumes no responsibility for the use, interpretation, or
+            consequences of the displayed results.
+        </p>
+    </footer>
+
+    <script>
+        // --------------- Utils ---------------
+
+        function formatYears(months) {
+            if (!isFinite(months) || months < 0) return "—";
+            const years = months / 12;
+            return years.toFixed(2);
+        }
+
+        function safeNumber(value) {
+            const n = Number(value);
+            return Number.isFinite(n) ? n : NaN;
+        }
+
+        // --------------- Calculateur simple ---------------
+
+        function calcSimpleTimeAndAmount(initial, monthly, target) {
+            if (!Number.isFinite(initial) ||
+                !Number.isFinite(monthly) ||
+                !Number.isFinite(target) ||
+                monthly <= 0) {
+                return null;
+            }
+
+            if (initial >= target) {
+                return {
+                    months: 0,
+                    finalAmount: initial
+                };
+            }
+
+            const needed = target - initial;
+            const months = Math.ceil(needed / monthly);
+            const finalAmount = initial + monthly * months;
+            return { months, finalAmount };
+        }
+
+        // --------------- Calculateur avancé ---------------
+
+        function calcAdvancedWithRatesAndInflation(params) {
+            const {
+                initial,
+                monthly,
+                target,
+                annualRate,
+                annualInflation
+            } = params;
+
+            if (!Number.isFinite(initial) ||
+                !Number.isFinite(monthly) ||
+                !Number.isFinite(target) ||
+                monthly <= 0) {
+                return null;
+            }
+
+            const r = annualRate / 100 / 12;      // taux mensuel
+            const i = annualInflation / 100;      // inflation annuelle
+
+            let capital = initial;
+            let months = 0;
+
+            // On limite la simulation pour éviter une boucle infinie
+            const maxMonths = 12 * 200; // 200 ans : largement suffisant pour un outil
+
+            while (months < maxMonths) {
+                // objectif ajusté à ce mois (inflation composée)
+                const adjustedTarget = target * Math.pow(1 + i, months / 12);
+
+                if (capital >= adjustedTarget) {
+                    return {
+                        months,
+                        finalCapital: capital,
+                        adjustedTarget
+                    };
+                }
+
+                // intérêts sur le capital existant
+                capital = capital * (1 + r);
+                // ajout de l’épargne mensuelle
+                capital += monthly;
+
+                months++;
+            }
+
+            // Limite atteinte : on retourne quand même les valeurs
+            const adjustedTarget = target * Math.pow(1 + i, months / 12);
+            return {
+                months,
+                finalCapital: capital,
+                adjustedTarget
+            };
+        }
+
+        // --------------- Wiring UI ---------------
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // --- Simple calculator ---
+            const simpleInitial = document.getElementById("simple-initial");
+            const simpleMonthly = document.getElementById("simple-monthly");
+            const simpleTarget = document.getElementById("simple-target");
+            const simpleBtn = document.getElementById("simple-btn");
+            const simpleResults = document.getElementById("simple-results");
+
+            simpleBtn.addEventListener("click", () => {
+                const initial = safeNumber(simpleInitial.value);
+                const monthly = safeNumber(simpleMonthly.value);
+                const target = safeNumber(simpleTarget.value);
+
+                const result = calcSimpleTimeAndAmount(initial, monthly, target);
+
+                if (!result) {
+                    simpleResults.textContent =
+                        "Données invalides / Invalid data.";
+                    simpleResults.classList.remove("empty");
+                    return;
+                }
+
+                const months = result.months;
+                const years = formatYears(months);
+                const finalAmount = Math.round(result.finalAmount);
+
+                simpleResults.textContent =
+                    "📅 Durée estimée / Estimated duration : " +
+                    months + " mois / months (" + years + " années / years)\n" +
+                    "Montant final / Final amount : " +
+                    finalAmount + " €";
+
+                simpleResults.classList.remove("empty");
+            });
+
+            // --- Advanced calculator ---
+            const advInitial = document.getElementById("adv-initial");
+            const advMonthly = document.getElementById("adv-monthly");
+            const advTarget = document.getElementById("adv-target");
+            const advRate = document.getElementById("adv-rate");
+            const advInflation = document.getElementById("adv-inflation");
+            const advRateDisplay = document.getElementById("adv-rate-display");
+            const advInflationDisplay = document.getElementById("adv-inflation-display");
+            const advBtn = document.getElementById("adv-btn");
+            const advResults = document.getElementById("adv-results");
+
+            // Mise à jour en direct de l’affichage des sliders
+            advRate.addEventListener("input", () => {
+                advRateDisplay.textContent = Number(advRate.value).toFixed(1);
+            });
+
+            advInflation.addEventListener("input", () => {
+                advInflationDisplay.textContent = Number(advInflation.value).toFixed(1);
+            });
+
+            advBtn.addEventListener("click", () => {
+                const initial = safeNumber(advInitial.value);
+                const monthly = safeNumber(advMonthly.value);
+                const target = safeNumber(advTarget.value);
+                const annualRate = safeNumber(advRate.value);
+                const annualInflation = safeNumber(advInflation.value);
+
+                const result = calcAdvancedWithRatesAndInflation({
+                    initial,
+                    monthly,
+                    target,
+                    annualRate,
+                    annualInflation
+                });
+
+                if (!result) {
+                    advResults.textContent =
+                        "Données invalides / Invalid data.";
+                    advResults.classList.remove("empty");
+                    return;
+                }
+
+                const months = result.months;
+                const years = formatYears(months);
+                const finalCapital = Math.round(result.finalCapital);
+                const adjustedTarget = Math.round(result.adjustedTarget);
+
+                advResults.textContent =
+                    "📅 Durée estimée / Estimated duration : " +
+                    months + " mois / months (" + years + " années / years)\n" +
+                    "Capital final / Final capital : " +
+                    finalCapital + " €\n" +
+                    "Objectif ajusté / Adjusted target : " +
+                    adjustedTarget + " €";
+
+                advResults.classList.remove("empty");
+            });
+        });
+    </script>
+</body>
+</html>
